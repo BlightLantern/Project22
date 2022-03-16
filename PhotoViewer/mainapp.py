@@ -49,11 +49,18 @@ class func:
 
     def changeIndexM(self):
         self.index = self.index-1
-        self.place_image(self.index)
+        try:
+            self.place_image(self.index)
+        except:
+            messagebox.showinfo('Error','Empty, No images selected')
+
 
     def changeIndexP(self):
         self.index = self.index+1
-        self.place_image(self.index)
+        try:
+            self.place_image(self.index)
+        except:
+            messagebox.showinfo('Error','Empty, No images selected')
 
 
 #initialize object:
