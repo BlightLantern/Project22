@@ -3,8 +3,6 @@ from tkinter import filedialog, messagebox
 from PIL import ImageTk, Image
 import os
 
-from app import directory
-
 
 #choose directory funcionality:
 class func:
