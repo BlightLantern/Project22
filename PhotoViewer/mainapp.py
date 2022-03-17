@@ -33,7 +33,7 @@ class func:
             self.label.photo = imageP
             self.label.pack()
         except IndexError:
-            print(self.index)
+            pass
 
     def reset(self):
         if abs(self.index)>len(self.dir_list)-1:
