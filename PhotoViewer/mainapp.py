@@ -25,10 +25,7 @@ class func:
 
     def place_image(self, i):       # To place image in label
         try:
-            try:       # To destroy existing image if present
-                self.label.destroy()
-            except:
-                pass
+            self.reset()
             image = Image.open(str(self.path)+str(self.dir_list[i]))
             resized_image= image.resize((900,600), Image.ANTIALIAS)
             imageP = ImageTk.PhotoImage(resized_image)
@@ -36,7 +33,21 @@ class func:
             self.label.photo = imageP
             self.label.pack()
         except IndexError:
-            messagebox.showinfo('Error','Empty, No images selected')
+            print(self.index)
+
+    def reset(self):
+        if abs(self.index)>len(self.dir_list)-1:
+            if self.index<0:
+                self.index+=1
+            elif self.index>0:
+                self.index-=1
+            i=1+'i'    # To invoke exception in place_image, cause dir_list[-1] will return pic, causing 2 pics
+            pass
+        else:
+            try:
+                self.label.destroy()
+            except:
+                pass
 
     def directory(self):    #  When opening a new directory
         self.index = 0
@@ -46,25 +57,27 @@ class func:
         self.items = len(self.dir_list)
 
     def changeIndexM(self):   # Changing photo to the left
-        self.index = self.index-1
+        #self.index = self.index-1
         try:
+            self.index = self.index-1
             self.place_image(self.index)
         except:
-            messagebox.showinfo('Error','Empty, No images selected')
-
+            pass
 
     def changeIndexP(self):    # Changing photo to the right
-        self.index = self.index+1
         try:
+            self.index = self.index+1
             self.place_image(self.index)
         except:
-            messagebox.showinfo('Error','Empty, No images selected')
+            pass
 
 
 #initialize object:
 obj = func()
 
-
+# close app function
+def close():
+    app.destroy()
 
 #initialize tk window:
 app = tkinter.Tk()
@@ -77,11 +90,14 @@ frame.place(anchor='center', relx=0.5, rely=0.5)
 # highlightbackground="blue", highlightthickness=2 //To put border to frame
 
 #buttons
+buttonEX= tkinter.Button(app, text='Exit',width=4, height=4, command=close)
+buttonEX.pack(side='left')
+buttonEX.place(anchor='nw')
 button1 = tkinter.Button(app, text='open directory', command=obj.directory)
-button1.pack()
-button2 = tkinter.Button(app, text='>',width=10, height=10, command=obj.changeIndexM)
+button1.pack(side='top')
+button2 = tkinter.Button(app, text='>',width=10, height=10, command=obj.changeIndexP)
 button2.pack(side='right', padx=15, pady=20)
-button3 = tkinter.Button(app, text='<',width=10, height=10, command=obj.changeIndexP)
+button3 = tkinter.Button(app, text='<',width=10, height=10, command=obj.changeIndexM)
 button3.pack(side='left', padx=15, pady=20)
 
 app.mainloop()
