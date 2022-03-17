@@ -14,20 +14,18 @@ class func:
     def Filename(self):   # Finds Path
         filename = filedialog.askdirectory(initialdir='C:\\', mustexist=True) #stores path
         if filename:
-            self.filename=filename+'/'
+            self.path=filename+'/'
 
-    def dir_files(self):    # return files in Path, and path
-        path=self.filename
+    def dir_files(self):    # Return files in Path, and path
         f_list=[]
-        for f in os.listdir(path):
+        for f in os.listdir(self.path):
             if f.endswith(('.jpg','.jpeg','.png')):
                 f_list.append(f)
-        self.path = path
         self.dir_list = f_list
 
-    def place_image(self, i):       #to place image in label
+    def place_image(self, i):       # To place image in label
         try:
-            try:       #To destroy existing image if present
+            try:       # To destroy existing image if present
                 self.label.destroy()
             except:
                 pass
@@ -40,14 +38,14 @@ class func:
         except IndexError:
             messagebox.showinfo('Error','Empty, No images selected')
 
-    def directory(self):
+    def directory(self):    #  When opening a new directory
         self.index = 0
         self.Filename()
         self.dir_files()
         self.place_image(self.index)
         self.items = len(self.dir_list)
 
-    def changeIndexM(self):
+    def changeIndexM(self):   # Changing photo to the left
         self.index = self.index-1
         try:
             self.place_image(self.index)
@@ -55,7 +53,7 @@ class func:
             messagebox.showinfo('Error','Empty, No images selected')
 
 
-    def changeIndexP(self):
+    def changeIndexP(self):    # Changing photo to the right
         self.index = self.index+1
         try:
             self.place_image(self.index)
@@ -73,9 +71,10 @@ app = tkinter.Tk()
 app.geometry("1000x700")
 
 #image frame:
-frame = tkinter.Frame(app, width=600, height=400, highlightbackground="blue", highlightthickness=2)
+frame = tkinter.Frame(app, width=600, height=400)
 frame.pack()
 frame.place(anchor='center', relx=0.5, rely=0.5)
+# highlightbackground="blue", highlightthickness=2 //To put border to frame
 
 #buttons
 button1 = tkinter.Button(app, text='open directory', command=obj.directory)
