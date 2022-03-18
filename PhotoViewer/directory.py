@@ -43,7 +43,7 @@ class Dir:
         self.placeImage()
 
     def changeIndexM(self):
+        self.index-=1
         if self.index<(-self.items):
             self.index=0
-        self.index-=1
         self.placeImage()
