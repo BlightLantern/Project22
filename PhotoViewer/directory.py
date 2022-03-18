@@ -1,10 +1,9 @@
 from tkinter import filedialog, Label
 from PIL import ImageTk, Image
 import os
-import tkinterApp   # Main app
 
 class Dir:
-    def __init__(self) -> None:
+    def __init__(self):
         # Getting and Storing path
         filename = filedialog.askdirectory(initialdir='C:\\', mustexist=True) 
         if filename:
@@ -23,7 +22,13 @@ class Dir:
         # Number of files in path
         self.items = len(self.dir_list)
 
+        # Place initial image
+        self.placeImage()
+
+        print(self.path+self.dir_list[self.index])
+
     def placeImage(self):
+        import tkinterApp   # Main app
         image = Image.open(str(self.path)+str(self.dir_list[self.index]))
         resized_image= image.resize((900,600), Image.ANTIALIAS)
         imageP = ImageTk.PhotoImage(resized_image)
@@ -35,10 +40,10 @@ class Dir:
         self.index+=1
         if self.index>self.items:
             self.index=0
-        self.placeImage(self.index)
+        self.placeImage()
 
     def changeIndexM(self):
         if self.index<(-self.items):
             self.index=0
         self.index-=1
-        self.placeImage(self.index)
+        self.placeImage()
