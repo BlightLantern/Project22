@@ -1,7 +1,7 @@
 from tkinter import filedialog, Label
 from PIL import ImageTk, Image
 import os
-from tkinterApp import application   # Main app
+import tkinterApp   # Main app
 
 class Dir:
     def __init__(self) -> None:
@@ -27,9 +27,9 @@ class Dir:
         image = Image.open(str(self.path)+str(self.dir_list[self.index]))
         resized_image= image.resize((900,600), Image.ANTIALIAS)
         imageP = ImageTk.PhotoImage(resized_image)
-        application.label = Label(application.frame, image = imageP)
-        application.label.photo = imageP
-        application.label.pack()
+        tkinterApp.application.label = Label(tkinterApp.application.frame, image = imageP)
+        tkinterApp.application.label.photo = imageP
+        tkinterApp.application.label.pack()
 
     def changeIndexP(self):
         self.index+=1

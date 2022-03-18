@@ -1,7 +1,6 @@
 import tkinter
 import directory   #Local
 
-print(directory)
 print(tkinter)
 
 class application:
