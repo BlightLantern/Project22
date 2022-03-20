@@ -15,8 +15,9 @@ class Dir():
 
     def getItems(self):
         f_list=[]
+        types = ('.jpeg', '.jpg', '.png')
         for f in os.listdir(self.path):
-            if f.endswith(('.jpg','.jpeg','.png')):
+            if f.lower().endswith(types):
                 f_list.append(f)
         self.dir_list = f_list
         self.items = len(self.dir_list)
