@@ -10,33 +10,25 @@ class ButtonFunc():
         self.frame=frame
         pass
 
-    def placeImage(self):
-        try:
-            self.label.destroy()
-        except:
-            pass
-        imageObject.doImage()
-        imageP = ImageTk.PhotoImage(imageObject.image)
-        self.label = tk.Label(self.frame, image = imageP)
-        self.label.photo = imageP
-        self.label.pack()
-
     def OpenDirectory_Button(self):        #Button command
         imageObject.index=0
         imageObject.getDir()
-        self.placeImage()
+        imageObject.doImage()
+        imageObject.displayImage(self.frame)
 
     def Plus_Button(self):       #Button command
         try:
             imageObject.doNext()
-            self.placeImage()
+            imageObject.deleteImage()
+            imageObject.displayImage(self.frame)
         except:
             pass
 
     def Minus_Button(self):       #Button command
         try:
             imageObject.doBack()
-            self.placeImage()
+            imageObject.deleteImage()
+            imageObject.displayImage(self.frame)
         except:
             pass
 

@@ -1,13 +1,15 @@
 from directory import Dir
-from PIL import Image
+from PIL import Image, ImageTk
+from tkinter import Label
 
 class ImageHandler(Dir):
     def __init__(self) -> None:
         super().__init__(self)
-        self.index = 0
+        self.img = True
 
     def getImage(self):
         self.image = Image.open(str(self.path)+str(self.dir_list[self.index]))
+        self.img = True
     
     def doImageModification(self):
         modifiedImage = self.image.resize((900,600), Image.ANTIALIAS)
@@ -17,15 +19,21 @@ class ImageHandler(Dir):
         self.getImage()
         self.doImageModification()
 
-    def doNext(self):
-        self.index+=1
-        if self.index>self.items-1:
-            self.index=0
-    
-    def doBack(self):
-        self.index-=1
-        if self.index<(-self.items):
-            self.index=0
+    def displayImage(self, frame):
+        self.deleteImage()
+        if not self.img:
+            self.doImage()
+        imageP = ImageTk.PhotoImage(self.image)
+        self.label = Label(frame, image = imageP)
+        self.label.photo = imageP
+        self.label.pack()
+
+    def deleteImage(self):
+        try:
+            self.label.destroy()
+            self.img = False
+        except:
+            pass
 
     def destroy(self):
         del self

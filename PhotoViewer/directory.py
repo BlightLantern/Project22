@@ -4,6 +4,7 @@ import os
 class Dir():
     def __init__(self, name) -> None:
         self.name = name
+        self.index = 0
         pass
 
     def getPath(self):
@@ -22,6 +23,16 @@ class Dir():
     def getDir(self):
         self.getPath()
         self.getItems()
+
+    def doNext(self):
+        self.index+=1
+        if self.index>self.items-1:
+            self.index=0
+    
+    def doBack(self):
+        self.index-=1
+        if self.index<(-self.items):
+            self.index=0
 
     def destroy(self):
         del self
