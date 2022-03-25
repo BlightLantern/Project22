@@ -16,7 +16,8 @@ Buttonf = ButtonFunc(frame)
 def close():
     Buttonf.destroy()
     app.destroy()
-
+#$ If I tell you to change the dimensions of your buttons, you would need to copy paste your values accross every one of them
+#$ buttonWidth=10, buttonHeight=10, pads....
 #buttons
 buttonEX= tk.Button(app, text='Exit',width=4, height=4, command=close)
 buttonEX.pack(side='left')
