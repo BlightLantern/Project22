@@ -14,6 +14,8 @@ class Dir():
             self.path=path+'/'
 
     def getItems(self):
+         #$ so you are filling an array from a tuple, then copying the array to another array?
+        #$ the list of extensions is supported by your code, why do you need to do this?
         f_list=[]
         types = ('.jpeg', '.jpg', '.png')
         for f in os.listdir(self.path):
