@@ -1,47 +1,35 @@
-from directory import Dir
+from directories_handler import DirectoriesHandler
 from PIL import Image, ImageTk
 from tkinter import Label
 
-#$ Use long descriptive names, self.img can actually be -> isImageLoaded
+
 #$ Can you find a better name for self.Label and self.Image? so I can know what does they represent without reading all the class?
-#$ Image Handler is a good name !
-class ImageHandler(Dir):
+class ImageHandler(DirectoriesHandler):
     def __init__(self) -> None:
         super().__init__(self)
-        self.img = True
+        self.imageExtensions = ('.jpg','.jpeg','.png')
+        self.imagecontainer = False
 
-    #$ getCurrentImage?
-    def getImage(self):
-        self.image = Image.open(str(self.path)+str(self.dir_list[self.index]))
-        self.img = True
+
+    def getCurrentImage(self):
+        self.image = Image.open(str(self.path)+str(self.directoryFilesList[self.listIndex]))
     
-    #$ Your actually resizing the image, why not call it resizeImage as its more expressive?
-    def doImageModification(self):
-        #$ Separation of concerns: isn't the resize thing a UI concern?
-        #$ if you use this handler for another app that have other dimensions, what do you do?
-        modifiedImage = self.image.resize((900,600), Image.ANTIALIAS)
+    def resizeImage(self, width, height):
+        modifiedImage = self.image.resize((width, height), Image.ANTIALIAS)
         self.image = modifiedImage
     
-    #$ Any better naming suggestion?
-    def doImage(self):
-        self.getImage()
-        self.doImageModification()
+    def getResizedImage(self, width, height):
+        self.getCurrentImage()
+        self.resizeImage(width, height)
 
     def displayImage(self, frame):
-        self.deleteImage()
-        if not self.img:
-            self.doImage()
         imageP = ImageTk.PhotoImage(self.image)
-        self.label = Label(frame, image = imageP)
-        self.label.photo = imageP
-        self.label.pack()
+        self.imagecontainer = Label(frame, image = imageP)
+        self.imagecontainer.photo = imageP
+        self.imagecontainer.pack()
 
-    def deleteImage(self):
-        try:
-            self.label.destroy()
-            self.img = False
-        except:
-            pass
+    def deleteCurrentImage(self):
+        self.imagecontainer.destroy()
 
     def destroy(self):
         del self

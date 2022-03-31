@@ -1,7 +1,5 @@
-#$ why is there a junk folder on the git repo? should it be in the .gitignore?
-
 import tkinter as tk
-from button_functions import ButtonFunc
+from button_commands import ButtonCommands
 
 app=tk.Tk()
 app.geometry("1000x700")
@@ -12,7 +10,7 @@ frame.pack()
 frame.place(anchor='center', relx=0.5, rely=0.5)
 
 #button functionality object
-Buttons = ButtonFunc(frame)
+Buttons = ButtonCommands(frame)
 
 #to close app
 def close():
@@ -20,16 +18,17 @@ def close():
     app.destroy()
 
 #buttons
-#$ If I tell you to change the dimensions of your buttons, you would need to copy paste your values accross every one of them
-#$ buttonWidth=10, buttonHeight=10, pads....
-buttonEX= tk.Button(app, text='Exit',width=4, height=4, command=close)
+buttonDirectionDimension = 10
+buttonExitDimension = 4
+
+buttonEX= tk.Button(app, text='Exit',width=buttonExitDimension, height=buttonExitDimension, command=close)
 buttonEX.pack(side='left')
 buttonEX.place(anchor='nw')
-button1 = tk.Button(app, text='open directory', command=Buttons.OpenDirectory_Button)
-button1.pack(side='top')
-button2 = tk.Button(app, text='>',width=10, height=10, command=Buttons.Plus_Button)
-button2.pack(side='right', padx=15, pady=20)
-button3 = tk.Button(app, text='<',width=10, height=10, command=Buttons.Minus_Button)
-button3.pack(side='left', padx=15, pady=20)
+buttonDir = tk.Button(app, text='open directory', command=Buttons.OpenDirectory_Button)
+buttonDir.pack(side='top')
+buttonRight = tk.Button(app, text='>',width=buttonDirectionDimension, height=buttonDirectionDimension, command=Buttons.Plus_Button)
+buttonRight.pack(side='right', padx=15, pady=20)
+buttonLeft = tk.Button(app, text='<',width=buttonDirectionDimension, height=buttonDirectionDimension, command=Buttons.Minus_Button)
+buttonLeft.pack(side='left', padx=15, pady=20)
 
 app.mainloop()
