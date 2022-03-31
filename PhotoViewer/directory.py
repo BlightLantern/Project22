@@ -21,7 +21,7 @@ class Dir():
         #$ the list of extensions is supported by your code, why do you need to do this?
         f_list=[]
         for f in os.listdir(self.path):
-            if f.endswith(('.jpg','.jpeg','.png')):
+            if f.lower().endswith(('.jpg','.jpeg','.png')):
                 f_list.append(f)
         self.dir_list = f_list
         self.items = len(self.dir_list)
