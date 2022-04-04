@@ -1,5 +1,3 @@
-from logging import exception
-from unittest import expectedFailure
 from image_handler import ImageHandler
 
 imageObject = ImageHandler()
