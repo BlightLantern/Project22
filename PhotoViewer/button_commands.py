@@ -1,13 +1,14 @@
 from image_handler import ImageHandler
 import tkinter as tk
+from tkinter import PhotoImage
 
 imageObject = ImageHandler()
 #$ You seperated the commands of the button in a seperate class, why did you do it? It is not wrong i just want to know the logic behind it
 #$ Buttons belong to the UI, so you could actually have left this in main.py
 #button functionalities
 class ButtonCommands(tk.Canvas):
-    def __init__(self, app, width, height):
-        super().__init__(master=app, width=width, height=height)
+    def __init__(self, app, width, height, bg):
+        super().__init__(master=app, width=width, height=height, bg=bg)
         self.imageWidth, self.imageHeight = 900, 600
         self.isImageExistant = False
 
@@ -18,9 +19,11 @@ class ButtonCommands(tk.Canvas):
         if self.isImageExistant:
             self.delete()
         imageObject.getResizedImage(self.imageWidth, self.imageHeight)
-        self.image = self.create_image((self.imageWidth, self.imageHeight), image = imageObject.returnPhotoImage(), anchor='nw')
+        img = PhotoImage(file="./other/pen.png")
+        self.create_image(200,200, image=img)
         self.isImageExistant = True
         self.update()
+        print(img)
 
     def Plus_Button(self):       #Button command
         try:
@@ -28,6 +31,7 @@ class ButtonCommands(tk.Canvas):
             self.delete()
             imageObject.getResizedImage(self.imageWidth, self.imageHeight)
             self.image = self.create_image(self.imageWidth, self.imageHeight, image = imageObject.returnPhotoImage())
+            self.isImageExistant=True
 
         except:
             print('error')
@@ -39,6 +43,7 @@ class ButtonCommands(tk.Canvas):
             self.delete()
             imageObject.getResizedImage(self.imageWidth, self.imageHeight)
             self.image = self.create_image(self.imageWidth, self.imageHeight, image = imageObject.returnPhotoImage())
+            self.isImageExistant=True
 
         except:
             pass

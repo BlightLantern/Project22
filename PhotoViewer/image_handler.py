@@ -1,6 +1,6 @@
 from directories_handler import DirectoriesHandler
 from PIL import Image, ImageTk
-from tkinter import Label
+from tkinter import PhotoImage
 
 
 #$ Can you find a better name for self.Label and self.Image? so I can know what does they represent without reading all the class?
@@ -21,7 +21,7 @@ class ImageHandler(DirectoriesHandler):
         self.resizeImage(width, height)
 
     def returnPhotoImage(self):
-        return ImageTk.PhotoImage(self.image)
+        return PhotoImage(self.image)
 
     def destroy(self):
         del self

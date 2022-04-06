@@ -1,5 +1,4 @@
 import tkinter as tk
-from webbrowser import BackgroundBrowser
 from PIL import Image, ImageTk
 from button_commands import *
 
@@ -21,10 +20,12 @@ frame.place(anchor='center', relx=0.5, rely=0.5)'''
 # canvas.place(anchor='center', relx=0.5, rely=0.5)
 
 #main container
-canvas = ButtonCommands(app, width, height)
+canvas = ButtonCommands(app, width, height, 'grey')
 canvas.imageWidth, canvas.imageHeight = width, height
 canvas.pack()
 canvas.place(anchor='center', relx=0.5, rely=0.5)
+img = PhotoImage(file="./other/pen.png")
+canvas.create_image(200,200, image=img)
 
 #to close app
 def close():
