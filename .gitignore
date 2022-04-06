@@ -1,0 +1,28 @@
+class buttonCommandsCanvasSet(Canvas):
+    def __init__(self, parent, **kwargs):
+        super().__init__(parent, **kwargs)
+        self.penIsDown = False
+
+    def savePosition(self, event):
+        if self.penIsDown:
+            self.x, self.y = event.x, event.y
+        else:
+            pass
+
+    def addLine(self, event):
+        if self.penIsdown:
+            self.savePosition(event)
+            self.create_line((self.x, self.y, event.x, event.y))
+            self.savePosition(event)
+        else:
+            pass
+
+    def changePen(self):
+        if self.penIsDown:    #PenDown
+            self.penIsDown = False   #PenUp
+            self.unbind("<Button-1>")
+            self.unbind("<B1-Motion>")
+        else:
+            self.penIsdown = True
+            self.bind("<Button-1>", self.savePosition)
+            self.bind("<B1-Motion>", self.addLine)

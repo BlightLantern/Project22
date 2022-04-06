@@ -1,34 +1,57 @@
 import tkinter as tk
-from button_commands import ButtonCommands
+from webbrowser import BackgroundBrowser
+from PIL import Image, ImageTk
+from button_commands import *
 
 app=tk.Tk()
 app.geometry("1000x700")
 
-#image frame:
-frame = tk.Frame(app, width=600, height=400)
-frame.pack()
-frame.place(anchor='center', relx=0.5, rely=0.5)
+#main container dimesions:
+width = 900
+height = 600
 
-#button functionality object
-Buttons = ButtonCommands(frame)
+'''#image container:
+frame = tk.Frame(app, width=width, height=height, background='blue')
+frame.pack()
+frame.place(anchor='center', relx=0.5, rely=0.5)'''
+
+#main container
+# canvas = buttonCommandsCanvasSet(app, width=width, height=height)
+# canvas.pack()
+# canvas.place(anchor='center', relx=0.5, rely=0.5)
+
+#main container
+canvas = ButtonCommands(app, width, height)
+canvas.imageWidth, canvas.imageHeight = width, height
+canvas.pack()
+canvas.place(anchor='center', relx=0.5, rely=0.5)
 
 #to close app
 def close():
-    Buttons.destroy()
+    canvas.destroy()
     app.destroy()
 
-#buttons
-buttonDirectionDimension = 10
+#buttonsMain
 buttonExitDimension = 4
 
 buttonEX= tk.Button(app, text='Exit',width=buttonExitDimension, height=buttonExitDimension, command=close)
 buttonEX.pack(side='left')
 buttonEX.place(anchor='nw')
-buttonDir = tk.Button(app, text='open directory', command=Buttons.OpenDirectory_Button)
+
+#buttonsImageSet
+buttonDirectionDimension = 10
+
+buttonDir = tk.Button(app, text='open directory', command=canvas.OpenDirectory_Button)
 buttonDir.pack(side='top')
-buttonRight = tk.Button(app, text='>',width=buttonDirectionDimension, height=buttonDirectionDimension, command=Buttons.Plus_Button)
+buttonRight = tk.Button(app, text='>',width=buttonDirectionDimension, height=buttonDirectionDimension, command=canvas.Plus_Button)
 buttonRight.pack(side='right', padx=15, pady=20)
-buttonLeft = tk.Button(app, text='<',width=buttonDirectionDimension, height=buttonDirectionDimension, command=Buttons.Minus_Button)
+buttonLeft = tk.Button(app, text='<',width=buttonDirectionDimension, height=buttonDirectionDimension, command=canvas.Minus_Button)
 buttonLeft.pack(side='left', padx=15, pady=20)
+
+#buttonsCanvasSet
+buttonToolDimensions = 30
+icon = ImageTk.PhotoImage(image=Image.open('./other/pen.png').resize((buttonToolDimensions, buttonToolDimensions)))
+buttonPen = tk.Button(app, image=icon, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.changePen)
+buttonPen.pack(side='bottom')
 
 app.mainloop()

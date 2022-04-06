@@ -8,8 +8,6 @@ class ImageHandler(DirectoriesHandler):
     def __init__(self) -> None:
         super().__init__(self)
         self.imageExtensions = ('.jpg','.jpeg','.png')
-        self.imagecontainer = False
-
 
     def getCurrentImage(self):
         self.image = Image.open(str(self.path)+str(self.directoryFilesList[self.listIndex]))
@@ -22,14 +20,8 @@ class ImageHandler(DirectoriesHandler):
         self.getCurrentImage()
         self.resizeImage(width, height)
 
-    def displayImage(self, frame):
-        imageP = ImageTk.PhotoImage(self.image)
-        self.imagecontainer = Label(frame, image = imageP)
-        self.imagecontainer.photo = imageP
-        self.imagecontainer.pack()
-
-    def deleteCurrentImage(self):
-        self.imagecontainer.destroy()
+    def returnPhotoImage(self):
+        return ImageTk.PhotoImage(self.image)
 
     def destroy(self):
         del self
