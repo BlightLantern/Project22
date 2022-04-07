@@ -20,8 +20,8 @@ class ImageHandler(DirectoriesHandler):
         self.getCurrentImage()
         self.resizeImage(width, height)
 
-    def returnPhotoImage(self):
-        return PhotoImage(self.image)
+    def getPhotoImage(self):
+        self.photoImage = PhotoImage(self.image)
 
     def destroy(self):
         del self

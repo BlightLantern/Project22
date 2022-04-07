@@ -24,8 +24,6 @@ canvas = ButtonCommands(app, width, height, 'grey')
 canvas.imageWidth, canvas.imageHeight = width, height
 canvas.pack()
 canvas.place(anchor='center', relx=0.5, rely=0.5)
-img = PhotoImage(file="./other/pen.png")
-canvas.create_image(200,200, image=img)
 
 #to close app
 def close():

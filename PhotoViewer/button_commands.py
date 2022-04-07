@@ -19,18 +19,17 @@ class ButtonCommands(tk.Canvas):
         if self.isImageExistant:
             self.delete()
         imageObject.getResizedImage(self.imageWidth, self.imageHeight)
-        img = PhotoImage(file="./other/pen.png")
-        self.create_image(200,200, image=img)
+        self.photoImage = imageObject.getPhotoImage()
+        self.image = self.create_image(self.imageWidth, self.imageHeight, image = self.photoImage)
         self.isImageExistant = True
-        self.update()
-        print(img)
 
     def Plus_Button(self):       #Button command
         try:
             imageObject.doNext()
             self.delete()
             imageObject.getResizedImage(self.imageWidth, self.imageHeight)
-            self.image = self.create_image(self.imageWidth, self.imageHeight, image = imageObject.returnPhotoImage())
+            self.photoImage = imageObject.getPhotoImage()
+            self.image = self.create_image(self.imageWidth, self.imageHeight, image = self.photoImage)
             self.isImageExistant=True
 
         except:
@@ -42,7 +41,8 @@ class ButtonCommands(tk.Canvas):
             imageObject.doBack()
             self.delete()
             imageObject.getResizedImage(self.imageWidth, self.imageHeight)
-            self.image = self.create_image(self.imageWidth, self.imageHeight, image = imageObject.returnPhotoImage())
+            self.photoImage = imageObject.getPhotoImage()
+            self.image = self.create_image(self.imageWidth, self.imageHeight, image = self.photoImage)
             self.isImageExistant=True
 
         except:
