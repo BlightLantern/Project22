@@ -3,50 +3,42 @@ import tkinter as tk
 from tkinter import PhotoImage
 
 imageObject = ImageHandler()
-#$ You seperated the commands of the button in a seperate class, why did you do it? It is not wrong i just want to know the logic behind it
-#$ Buttons belong to the UI, so you could actually have left this in main.py
-#button functionalities
+
 class ButtonCommands(tk.Canvas):
     def __init__(self, app, width, height, bg):
         super().__init__(master=app, width=width, height=height, bg=bg)
         self.imageWidth, self.imageHeight = 900, 600
         self.isImageExistant = False
+        self.isPenDown = False
 
+    def placeImage(self):
+        imageObject.getResizedImage(self.imageWidth, self.imageHeight)
+        imageObject.getPhotoImage()
+        self.image = self.create_image(0, 0, image = imageObject.photoImage, anchor='nw')
+        self.isImageExistant = True
+
+    #image functionalities
     def OpenDirectory_Button(self):        #Button command
         imageObject.listIndex=0
         imageObject.choosePath()
         imageObject.getFiles(imageObject.imageExtensions)
         if self.isImageExistant:
             self.delete()
-        imageObject.getResizedImage(self.imageWidth, self.imageHeight)
-        self.photoImage = imageObject.getPhotoImage()
-        self.image = self.create_image(self.imageWidth, self.imageHeight, image = self.photoImage)
-        self.isImageExistant = True
+        self.placeImage()
 
     def Plus_Button(self):       #Button command
         try:
             imageObject.doNext()
             self.delete()
-            imageObject.getResizedImage(self.imageWidth, self.imageHeight)
-            self.photoImage = imageObject.getPhotoImage()
-            self.image = self.create_image(self.imageWidth, self.imageHeight, image = self.photoImage)
-            self.isImageExistant=True
-
-        except:
-            print('error')
-            pass
+            self.placeImage()
+        except: pass
 
     def Minus_Button(self):       #Button command
-        try:
+        try: 
             imageObject.doBack()
             self.delete()
-            imageObject.getResizedImage(self.imageWidth, self.imageHeight)
-            self.photoImage = imageObject.getPhotoImage()
-            self.image = self.create_image(self.imageWidth, self.imageHeight, image = self.photoImage)
-            self.isImageExistant=True
-
-        except:
-            pass
+            self.placeImage()
+        except: pass
 
     def deleteImage(self):
         self.delete('all')
@@ -57,7 +49,7 @@ class ButtonCommands(tk.Canvas):
         del self
     
 
-    penIsDown = False
+    #drawing functionalities
 
     def savePosition(self, event):
         self.x, self.y = event.x, event.y
@@ -66,12 +58,12 @@ class ButtonCommands(tk.Canvas):
         self.create_line((self.x, self.y, event.x, event.y))
         self.savePosition(event)
 
-    def changePen(self):
-        if self.penIsDown:
-            self.penIsDown = False
+    def changePen(self):            #Button Command
+        if self.isPenDown:
+            self.isPenDown = False
             self.unbind("<Button-1>")
             self.unbind("<B1-Motion>")
         else:
-            self.penIsdown = True
+            self.isPenDown = True
             self.bind("<Button-1>", self.savePosition)
             self.bind("<B1-Motion>", self.addLine)

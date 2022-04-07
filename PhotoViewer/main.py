@@ -53,4 +53,5 @@ icon = ImageTk.PhotoImage(image=Image.open('./other/pen.png').resize((buttonTool
 buttonPen = tk.Button(app, image=icon, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.changePen)
 buttonPen.pack(side='bottom')
 
-app.mainloop()
+if __name__=='__main__':
+    app.mainloop()
