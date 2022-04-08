@@ -41,30 +41,32 @@ buttonLeft.pack(side='left', padx=15, pady=20)
 #buttons drawing
 toolsContainer = tk.Frame(app)
 toolsContainer.pack(side='bottom')
-def changePen():
-    if canvas.isPenDown:
-        canvas.unbinding()
-    else:
-        canvas.penDown()
 
 buttonToolDimensions = 30
-icon = ImageTk.PhotoImage(image=Image.open('./other/pen.png').resize((buttonToolDimensions, buttonToolDimensions)))
-buttonPen = tk.Button(toolsContainer, image=icon, width=buttonToolDimensions, height=buttonToolDimensions, command=changePen)
-buttonPen.pack(side='right')
 
+iconPointer = ImageTk.PhotoImage(image=Image.open('./other/pointer.png').resize((buttonToolDimensions, buttonToolDimensions)))
+buttonPointer = tk.Button(toolsContainer, image=iconPointer, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.pointer)
+buttonPointer.pack(side='right', padx=5, pady=5)
 
+iconPen = ImageTk.PhotoImage(image=Image.open('./other/pen.png').resize((buttonToolDimensions, buttonToolDimensions)))
+buttonPen = tk.Button(toolsContainer, image=iconPen, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.penDown)
+buttonPen.pack(side='right', padx=5, pady=5)
 
-buttonToolDimensions = 2
-def changeRectangle():
-    if canvas.isRectangleDown:
-        canvas.unbinding()
-    else: 
-        canvas.planRectangle()
-buttonRectangle = tk.Button(toolsContainer,text="Rectangle", width=buttonToolDimensions, height=buttonToolDimensions, command=changeRectangle)
-buttonRectangle.pack(side='right')
+iconRectangle = ImageTk.PhotoImage(image=Image.open('./other/rectangle.png').resize((buttonToolDimensions, buttonToolDimensions)))
+buttonRectangle = tk.Button(toolsContainer, image=iconRectangle, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.rectangleDown)
+buttonRectangle.pack(side='right', padx=5, pady=5)
 
-buttonCircle=tk.Button(toolsContainer, text='Circle', width=buttonToolDimensions, height=buttonToolDimensions)
-buttonCircle.pack(side='right')
+iconCircle = ImageTk.PhotoImage(image=Image.open('./other/circle.jpg').resize((buttonToolDimensions, buttonToolDimensions)))
+buttonCircle = tk.Button(toolsContainer, image=iconCircle, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.circleDown)
+buttonCircle.pack(side='right', padx=5, pady=5)
+
+iconColor = ImageTk.PhotoImage(image=Image.open('./other/colors.jpg').resize((buttonToolDimensions, buttonToolDimensions)))
+buttonColor=tk.Button(toolsContainer, image=iconColor, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.askcolor)
+buttonColor.pack(side='right', padx=5, pady=5)
+
+iconUndo = ImageTk.PhotoImage(image=Image.open('./other/undo.jpg').resize((buttonToolDimensions, buttonToolDimensions)))
+buttonUndo = tk.Button(toolsContainer, image=iconUndo, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.undo)
+buttonUndo.pack(side='right', padx=5, pady=5)
 
 if __name__=='__main__':
     app.mainloop()
