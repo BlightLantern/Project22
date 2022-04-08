@@ -10,6 +10,9 @@ class ButtonCommands(tk.Canvas):
         self.imageWidth, self.imageHeight = 900, 600
         self.isImageExistant = False
         self.isPenDown = False
+        self.isRectangleDown = False
+        self.isCircleDown = False
+        self.pens=(self.isPenDown, self.isRectangleDown, self.isCircleDown)
 
     def placeImage(self):
         imageObject.getResizedImage(self.imageWidth, self.imageHeight)
@@ -50,20 +53,41 @@ class ButtonCommands(tk.Canvas):
     
 
     #drawing functionalities
+    eventSequence = ('<Button-1>', "<B1-Motion>", "<ButtonRelease-1>")
 
     def savePosition(self, event):
         self.x, self.y = event.x, event.y
 
+    def unbinding(self):
+        for i in self.pens:
+            i = False
+        for j in self.eventSequence:
+            self.unbind(j)
+            
+            
+    #pen
     def addLine(self, event):
         self.create_line((self.x, self.y, event.x, event.y))
         self.savePosition(event)
 
-    def changePen(self):            #Button Command
-        if self.isPenDown:
-            self.isPenDown = False
-            self.unbind("<Button-1>")
-            self.unbind("<B1-Motion>")
-        else:
-            self.isPenDown = True
-            self.bind("<Button-1>", self.savePosition)
-            self.bind("<B1-Motion>", self.addLine)
+    def penDown(self):
+        self.unbinding()
+        self.isPenDown = True
+        self.bind("<Button-1>", self.savePosition)
+        self.bind("<B1-Motion>", self.addLine)
+    
+
+    #rectangle
+    def addRectangle(self, event):
+        if self.x and self.y:
+            self.create_rectangle((self.x, self.y, event.x, event.y), fill='red')
+
+    def planRectangle(self):
+        self.x , self.y =  None, None
+        self.unbinding()
+        self.isRectangleDown = True
+        self.bind('<Button-1>', self.savePosition)
+        self.bind('<ButtonRelease-1>', self.addRectangle)
+
+
+

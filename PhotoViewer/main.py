@@ -9,16 +9,6 @@ app.geometry("1000x700")
 width = 900
 height = 600
 
-'''#image container:
-frame = tk.Frame(app, width=width, height=height, background='blue')
-frame.pack()
-frame.place(anchor='center', relx=0.5, rely=0.5)'''
-
-#main container
-# canvas = buttonCommandsCanvasSet(app, width=width, height=height)
-# canvas.pack()
-# canvas.place(anchor='center', relx=0.5, rely=0.5)
-
 #main container
 canvas = ButtonCommands(app, width, height, 'grey')
 canvas.imageWidth, canvas.imageHeight = width, height
@@ -47,11 +37,34 @@ buttonRight.pack(side='right', padx=15, pady=20)
 buttonLeft = tk.Button(app, text='<',width=buttonDirectionDimension, height=buttonDirectionDimension, command=canvas.Minus_Button)
 buttonLeft.pack(side='left', padx=15, pady=20)
 
-#buttonsCanvasSet
+
+#buttons drawing
+toolsContainer = tk.Frame(app)
+toolsContainer.pack(side='bottom')
+def changePen():
+    if canvas.isPenDown:
+        canvas.unbinding()
+    else:
+        canvas.penDown()
+
 buttonToolDimensions = 30
 icon = ImageTk.PhotoImage(image=Image.open('./other/pen.png').resize((buttonToolDimensions, buttonToolDimensions)))
-buttonPen = tk.Button(app, image=icon, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.changePen)
-buttonPen.pack(side='bottom')
+buttonPen = tk.Button(toolsContainer, image=icon, width=buttonToolDimensions, height=buttonToolDimensions, command=changePen)
+buttonPen.pack(side='right')
+
+
+
+buttonToolDimensions = 2
+def changeRectangle():
+    if canvas.isRectangleDown:
+        canvas.unbinding()
+    else: 
+        canvas.planRectangle()
+buttonRectangle = tk.Button(toolsContainer,text="Rectangle", width=buttonToolDimensions, height=buttonToolDimensions, command=changeRectangle)
+buttonRectangle.pack(side='right')
+
+buttonCircle=tk.Button(toolsContainer, text='Circle', width=buttonToolDimensions, height=buttonToolDimensions)
+buttonCircle.pack(side='right')
 
 if __name__=='__main__':
     app.mainloop()
