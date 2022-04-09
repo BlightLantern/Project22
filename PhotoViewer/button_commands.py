@@ -8,7 +8,7 @@ imageObject = ImageHandler()
 class ButtonCommands(tk.Canvas):
     def __init__(self, app, width, height, bg):
         super().__init__(master=app, width=width, height=height, bg=bg)
-        self.imageWidth, self.imageHeight = 900, 600
+        self.imageWidth, self.imageHeight = width, height
         self.isImageExistant = False
         self.eventSequence = ('<Button-1>', "<B1-Motion>", "<ButtonRelease-1>")
         self.color = 'black'            #defailt drawing color
@@ -28,12 +28,14 @@ class ButtonCommands(tk.Canvas):
         if self.isImageExistant:
             self.delete()
         self.placeImage()
+        self.tag_lower(self.image)
 
     def Plus_Button(self):       #Button command
         try:
             imageObject.doNext()
             self.delete()
             self.placeImage()
+            self.tag_lower(self.image)
         except: pass
 
     def Minus_Button(self):       #Button command
@@ -41,10 +43,11 @@ class ButtonCommands(tk.Canvas):
             imageObject.doBack()
             self.delete()
             self.placeImage()
+            self.tag_lower(self.image)
         except: pass
 
     def deleteImage(self):
-        self.delete('all')
+        self.delete(self.image)
         self.isImageExistant = False
 
     def destroy(self):
@@ -106,5 +109,12 @@ class ButtonCommands(tk.Canvas):
         except IndexError:
             pass
 
+    #clear
+    def clear(self):
+        self.delete('all')
+        try: 
+            self.image = self.create_image(0, 0, image = imageObject.photoImage, anchor='nw')
+        except:
+            pass
 
 

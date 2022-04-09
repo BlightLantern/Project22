@@ -68,5 +68,9 @@ iconUndo = ImageTk.PhotoImage(image=Image.open('./other/undo.jpg').resize((butto
 buttonUndo = tk.Button(toolsContainer, image=iconUndo, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.undo)
 buttonUndo.pack(side='right', padx=5, pady=5)
 
+iconClear = ImageTk.PhotoImage(image=Image.open('./other/clear.png').resize((buttonToolDimensions, buttonToolDimensions)))
+buttonClear = tk.Button(toolsContainer, image=iconClear, width=buttonToolDimensions, height=buttonToolDimensions, command=canvas.clear)
+buttonClear.pack(side='right', padx=5, pady=5)
+
 if __name__=='__main__':
     app.mainloop()
