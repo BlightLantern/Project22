@@ -16,7 +16,8 @@ Buttons = ButtonCommands(frame)
 def close():
     Buttons.destroy()
     app.destroy()
-
+#$ If I tell you to change the dimensions of your buttons, you would need to copy paste your values accross every one of them
+#$ buttonWidth=10, buttonHeight=10, pads....
 #buttons
 buttonDirectionDimension = 10
 buttonExitDimension = 4
