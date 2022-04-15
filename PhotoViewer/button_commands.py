@@ -1,11 +1,8 @@
 from tkinter.colorchooser import askcolor
 from image_handler import ImageHandler
 import tkinter as tk
-from tkinter import PhotoImage
 
-imageObject = ImageHandler()
-
-class ButtonCommands(tk.Canvas):
+class ButtonCommands(tk.Canvas, ImageHandler):
     def __init__(self, app, width, height, bg):
         super().__init__(master=app, width=width, height=height, bg=bg)
         self.imageWidth, self.imageHeight = width, height
@@ -15,16 +12,16 @@ class ButtonCommands(tk.Canvas):
         self.shapeIds = []          #Store shape ids to delete them later
 
     def placeImage(self):
-        imageObject.getResizedImage(self.imageWidth, self.imageHeight)
-        imageObject.getPhotoImage()
-        self.image = self.create_image(0, 0, image = imageObject.photoImage, anchor='nw')
+        self.getResizedImage(self.imageWidth, self.imageHeight)
+        self.getPhotoImage()
+        self.image = self.create_image(0, 0, image = self.photoImage, anchor='nw')
         self.isImageExistant = True
 
     #image functionalities
     def OpenDirectory_Button(self):        #Button command
-        imageObject.listIndex=0
-        imageObject.choosePath()
-        imageObject.getFiles(imageObject.imageExtensions)
+        self.listIndex=0
+        self.choosePath()
+        self.getFiles(self.imageExtensions)
         if self.isImageExistant:
             self.delete()
         self.placeImage()
@@ -32,7 +29,7 @@ class ButtonCommands(tk.Canvas):
 
     def Plus_Button(self):       #Button command
         try:
-            imageObject.doNext()
+            self.doNext()
             self.delete()
             self.placeImage()
             self.tag_lower(self.image)
@@ -40,7 +37,7 @@ class ButtonCommands(tk.Canvas):
 
     def Minus_Button(self):       #Button command
         try: 
-            imageObject.doBack()
+            self.doBack()
             self.delete()
             self.placeImage()
             self.tag_lower(self.image)
@@ -51,7 +48,6 @@ class ButtonCommands(tk.Canvas):
         self.isImageExistant = False
 
     def destroy(self):
-        imageObject.destroy()
         del self
     
 
@@ -113,7 +109,7 @@ class ButtonCommands(tk.Canvas):
     def clear(self):
         self.delete('all')
         try: 
-            self.image = self.create_image(0, 0, image = imageObject.photoImage, anchor='nw')
+            self.image = self.create_image(0, 0, image = self.photoImage, anchor='nw')
         except:
             pass
 
