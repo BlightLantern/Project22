@@ -20,6 +20,7 @@ def close():
     canvas.destroy()
     app.destroy()
 
+
 #buttonsMain
 buttonExitDimension = 4
 

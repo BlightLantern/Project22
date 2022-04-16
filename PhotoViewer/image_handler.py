@@ -6,7 +6,8 @@ from PIL import Image, ImageTk
 class ImageHandler(DirectoriesHandler):
     def __init__(self) -> None:
         super().__init__(self)
-        self.imageExtensions = ('.jpg','.jpeg','.png')
+    
+    imageExtensions = ('.jpg','.jpeg','.png')
 
     def getCurrentImage(self):
         self.image = Image.open(str(self.path)+str(self.directoryFilesList[self.listIndex]))
