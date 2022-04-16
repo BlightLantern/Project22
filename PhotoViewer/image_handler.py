@@ -1,15 +1,13 @@
 from directories_handler import DirectoriesHandler
 from PIL import Image, ImageTk
-from tkinter import Label
 
 
 #$ Can you find a better name for self.Label and self.Image? so I can know what does they represent without reading all the class?
 class ImageHandler(DirectoriesHandler):
     def __init__(self) -> None:
         super().__init__(self)
-        self.imageExtensions = ('.jpg','.jpeg','.png')
-        self.imagecontainer = False
-
+    
+    imageExtensions = ('.jpg','.jpeg','.png')
 
     def getCurrentImage(self):
         self.image = Image.open(str(self.path)+str(self.directoryFilesList[self.listIndex]))
@@ -22,14 +20,8 @@ class ImageHandler(DirectoriesHandler):
         self.getCurrentImage()
         self.resizeImage(width, height)
 
-    def displayImage(self, frame):
-        imageP = ImageTk.PhotoImage(self.image)
-        self.imagecontainer = Label(frame, image = imageP)
-        self.imagecontainer.photo = imageP
-        self.imagecontainer.pack()
-
-    def deleteCurrentImage(self):
-        self.imagecontainer.destroy()
+    def getPhotoImage(self):
+        self.photoImage = ImageTk.PhotoImage(self.image)
 
     def destroy(self):
         del self
