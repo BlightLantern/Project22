@@ -20,8 +20,6 @@ def close():
     canvas.destroy()
     app.destroy()
 
-
-#buttonsMain
 buttonExitDimension = 4
 
 buttonEX= tk.Button(app, text='Exit',width=buttonExitDimension, height=buttonExitDimension, command=close)
